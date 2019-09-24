@@ -1,0 +1,6 @@
+.DS_Store
+
+Laplace/*
+!Laplace/*.tex
+!Laplace/*.pdf
+!Laplace/*.png
