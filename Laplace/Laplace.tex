@@ -67,7 +67,7 @@ f(t) = \L^{-1}[F(p)] = \frac{1}{2\pi\i}\int_{a - \i\infty}^{a+\i\infty}e^{pt}F(p
 	\[
 	e^{p_0t} f(t) \risingdotseq F(p-p_0).
 	\]
-	\item Дифференцирование оригинала. $f\in C^n$
+	\item Дифференцирование оригинала. $f\in C^n$ \label{itm:prop-diff-original}
 	\begin{align*}
 	f'(t) &\risingdotseq p F(p) - f(+0), \\
 	&\dots \\
@@ -189,14 +189,41 @@ F(s,\i\omega) &= \int_{-\infty}^{+\infty}f(t)e^{-st}e^{-\i\omega t}\rd t, ~ p = 
 \[
 \int_{-\infty}^{+\infty} |\F\{x(t)\}|^2\rd w = \int_{-\infty}^{+\infty}|x(t)|^2\rd t;
 \]
-физическая интерпретация~\cite{Plancherel}: \emph{энергия колебательного сигнала равна сумме энергий его гармонических компонент.}
+физическая интерпретация~\cite[после~ф-лы~8]{Plancherel}: \emph{энергия колебательного сигнала равна сумме энергий его гармонических компонент.}
+
+\section{Задачи}
+\subsection{Дифференциальные уравнения}
+В задачах по теме присутствуют задачи Коши, которые надо решить используя операционное исчисление. Как это делать объяснено в ~\cite{difur}. В целом, ничего сложного, надо просто: 
+\begin{enumerate}
+	\item Используя теорему о дифференцировании оригинала~\ref{itm:prop-diff-original} (и таблицу преобразований для элементарных функций) записать алгебраическое уравнение для изображений. На этом шаге используется тот факт, что нам даны начальные условия -- это позволяет исключить символ $f^{(k)}(+0)$.
+	\item Выразить образ искомой функции в виде дроби. В числителе и знаменателе дроби -- многочлены от $p$, и знаменатель хорошо бы разложить на множители; это упростит следующий шаг.
+	\item Теперь,  чтобы произвести обратное преобразование, нужно разложить получившуюся дробь в сумму простых дробей. Для этого используется метод неопределённых коэффициентов.~\cite{indefinite-coef-method}
+	\item Когда решение для образа функции представлено суммой простых дробей, производим обратное преобразование Лапласа. 
+\end{enumerate}
+
+\subsection{Интегральные уравнения}
+Последняя задача -- интегральное уравнение. Там можно заметить интеграл типа ``свёртки'' $\int_0^t g(t-\tau)x(\tau)\rd\tau$. Если быть точным, перед нами уравнение Вольтерра второго рода.~\cite[см.~ф-лу~8.11]{integral-equations}
 
 \begin{thebibliography}{0}
 	\bibitem{Dubkov:Lecture}
+	А.А. Дубков, Н.В. Агудов. Преобразование Лапласа. Учебно-методическое пособие.
 	\url{http://www.lib.unn.ru/students/src/Laplace%20transform.pdf}
 	\bibitem{Fourier-conditions}
+	Преобразование Фурье.
 	\url{http://drive.ispu.ru/elib/lebedev/2.html}
 	\bibitem{Plancherel}
+	Фурье преобразование.
 	\url{https://www.booksite.ru/fulltext/1/001/008/117/965.htm}
+	\bibitem{difur}
+	Как решить дифференциальное уравнение
+	методом операционного исчисления?
+	\url{http://mathprofi.ru/reshenie_diffurov_metodom_operacionnogo_ischislenija.html}
+	\bibitem{indefinite-coef-method}
+	Интегрирование дробно-рациональной функции. 
+	Метод неопределенных коэффициентов
+	\url{http://mathprofi.ru/integraly_ot_drobno_racionalnoj_funkcii.html}
+	\bibitem{integral-equations}
+	Интегральные урванения типа ``свёртки.''
+	\url{https://studfiles.net/preview/6312517/page:9/}
 \end{thebibliography}
 \end{document}
