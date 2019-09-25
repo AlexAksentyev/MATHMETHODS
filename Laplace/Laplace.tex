@@ -55,7 +55,7 @@ f(t) = \L^{-1}[F(p)] = \frac{1}{2\pi\i}\int_{a - \i\infty}^{a+\i\infty}e^{pt}F(p
 \begin{enumerate}
 	\item Линейность.
 	\[
-	\forall\alpha,\beta\in\C\left[\alpha f(t)\beta g(t) \risingdotseq \alpha F(p) + \beta G(p)\right]
+	\forall\alpha,\beta\in\C\left[\alpha f(t)+\beta g(t) \risingdotseq \alpha F(p) + \beta G(p)\right]
 	\]
 	Следствие линейности интеграла.
 	\item Теорема подобия.
@@ -63,7 +63,7 @@ f(t) = \L^{-1}[F(p)] = \frac{1}{2\pi\i}\int_{a - \i\infty}^{a+\i\infty}e^{pt}F(p
 	\forall\alpha>0 \left[f(\alpha t) \risingdotseq \frac 1\alpha F\left(\frac p\alpha\right) \right].
 	\]
 	(Заменить $\alpha t = \tau$ в интеграле.)
-	\item Теорема запаздывания.
+	\item Теорема запаздывания.\label{itm:prop-offset}
 	\[
 	f(t-\tau) \risingdotseq e^{-p\tau} F(p).
 	\]
@@ -216,10 +216,77 @@ F(s,\i\omega) &= \int_{-\infty}^{+\infty}f(t)e^{-st}e^{-\i\omega t}\rd t, ~ p = 
 	\item Когда решение для образа функции представлено суммой простых дробей, производим обратное преобразование Лапласа. 
 \end{enumerate}
 
+\subsubsection{Пример 1~\cite{difur}} Решить задачу Коши.
+\[
+\begin{cases}
+x'' - 3x' - 4x = 4t - 5, \\
+x(0) = -1, \\
+x'(0) = 2
+\end{cases}
+\]
+
+Отображения по Лапласу
+\begin{align*}
+	x(t) &\risingdotseq X(p), \\
+	x'(t) &\risingdotseq pX(p) - x(+0) = pX(p) + 1, \\
+	x''(t) &\risingdotseq p^2X(p) - px(+0) - x'(+0) = p^2X(p) + p - 2, \\
+	t &\risingdotseq \frac{1}{p^2}, \\
+	1 &\risingdotseq \frac1p.
+\end{align*}
+
+Таким образом, отображение по Лапласу левой и правой частей дифференциального уравнения:
+\[
+p^2 X(p) - 3pX(p) -4X(p) + p - 5 = \frac{4}{p^2} - \frac{5}{p}.
+\]
+Разрешаем уравнение относительно искомой функции $X(p)$:
+\begin{align*}
+	X(p)\underbrace{\left[p^2 - 3p - 4\right]}_{(p+1)(p-4)} &= \frac{4 - 5p + 5p^2 - p^3}{p^2}, \\
+	X(p) &= \frac{-p^3 + 5p^2 - 5p + 4}{p^2(p+1)(p-4)}.
+\end{align*}
+
+Теперь нам надо разложить получившуюся дробь на сумму простых дробей. Это делается \emph{методом неопределённых коэффициентов}~\cite{indefinite-coef-method}. Разложим нашу дробь:
+
+\begin{equation*}
+\frac{-p^3 + 5p^2 - 5p + 4}{p^2(p+1)(p-4)} = \underbrace{\frac{A}{p}}_{\text{Achtung!}} + \frac{B}{p^2} + \frac{C}{p+1} + \frac{D}{p-4}.
+\end{equation*}
+
+Achtung!: отмечу первое слагаемое в правой части: $A/p$. Оно появляется потому, что в знаменателе левой части $p^2$ -- кратный множитель. (См. \textbf{Пример 2} в~\cite{indefinite-coef-method}.)
+
+После отыскания коэффициентов $A,B,C,D$ получаем решение для изображения
+\[
+X(p) = 2\cdot\frac1p - \frac{1}{p^2} - 3\cdot\frac{1}{p+1}.
+\]
+
+И после обратного преобразования:
+\[
+x(t) = 2 - t - 3e^{-t}.
+\]
+
 \subsection{Интегральные уравнения}
 Последняя задача -- интегральное уравнение. Если быть точным, перед нами уравнение Вольтерра второго рода.~\cite[см.~ф-лу~8.11]{integral-equations} Там можно заметить интеграл типа ``свёртки'' $\int_0^t g(t-\tau)x(\tau)\rd\tau$ (аргумент одной из функций $t-\tau$).
 
 Чтобы его решить, надо применить теорему~\ref{thm:convolution} (о свёртке), получить алгебраическое уравнение для образов, разрешить его относительно образа искомой функции, по возможности упростить получившуюся дробь, и произвести обратное преобразование Лапласа.
+
+\subsubsection{Пример}
+Решить уравнение
+\begin{equation}\label{eq:integr-1}
+x(t) = 1 + \frac16\int_0^t \underbrace{(t-\tau)^3}_{r(t-\tau)} x(\tau)\rd\tau. 
+\end{equation}
+
+Сделаем преобразование Лапласа уравнения~\eqref{eq:integr-1}:
+\begin{align*}
+X(p) &= \frac1p + \frac16 R(p)X(p), \\
+t^3 &\risingdotseq \frac{6}{p^4}, \\
+X(p) &= \frac1p + \frac16\frac{6}{p^4}X(p), \\
+X(p)\left[1 - \frac{1}{p^4}\right] &= \frac1p, \\
+X(p) &= \frac{p^3}{p^4-1} = \frac{p^3}{(p^2+1)(p-1)(p+1)}.
+\end{align*}
+
+Воспользовавшись сервисом~\url{https://math.semestr.ru/tau/laplas.php}, получим обратное преобразование:
+\[
+x(t) = \frac{e^t}{4} + \frac{\cos t}{2} + \frac{e^{-t}}{4}.
+\]
+
 
 \begin{thebibliography}{0}
 	\bibitem{Dubkov:Lecture}
@@ -242,5 +309,8 @@ F(s,\i\omega) &= \int_{-\infty}^{+\infty}f(t)e^{-st}e^{-\i\omega t}\rd t, ~ p = 
 	\bibitem{integral-equations}
 	Интегральные урванения типа ``свёртки.''
 	\url{https://studfiles.net/preview/6312517/page:9/}
+	\bibitem{laplace-table}
+	Таблица оригиналов и изображений (преобразование Лапласа).
+	\url{http://mathprofi.ru/tablica_originalov_j_izobrazhenij.pdf}
 \end{thebibliography}
 \end{document}
