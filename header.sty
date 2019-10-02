@@ -7,6 +7,15 @@
 \usepackage{url, hyperref}
 \usepackage{graphicx}
 \usepackage{xfrac}
+\usepackage{subcaption}
+
+\let\emph\relax % there's no \RedeclareTextFontCommand
+\DeclareTextFontCommand{\emph}{\bfseries\em}
+
+\newcommand{\rd}{\mathrm d}
+
+\let\vec\oldvec
+\newcommand{\vec}[1]{\mathbf{#1}}
 
 \newtheorem{thm}{Теорема}
 \newtheorem{rmk}{Замечание}
