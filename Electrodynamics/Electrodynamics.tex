@@ -1,0 +1,109 @@
+\documentclass[12pt]{report}
+\usepackage{../header}
+
+
+\title{Тема 4. Математические модели электродинамики.}
+
+\begin{document}
+	\maketitle
+
+\begin{tcolorbox}
+	\textbf{УЧЕБНИК ДНЯ:}
+	А.Н. Тихонов, А.А Самарский. Уравнения математической физики.
+	\url{http://old.pskgu.ru/ebooks/tihonov.html}
+\end{tcolorbox}
+
+Эта тема посвящена поиску распределения потенциала в пространстве, то есть решению краевой задачи для уравнения Лапласа. (То есть в учебнике Тихонова нас интересует глава 4.)
+
+\paragraph{Типы краевых задач}
+Любая краевая задача -- это решение дифференциального уравнения в частных производных (урмата) $Lu = f(x)$ в некоторой области $\Omega$ (внутренняя задача), или вне её (внешняя задача), при заданных на границе области (обозначается как $\partial\Omega$) \emph{граничных уcловиях}:
+\begin{enumerate}[(1)]
+	\item[\textbf{Дирихле}] граничные условия налагаются на значения \emph{самой} функции: 
+	\[
+		u\vert_{\partial\Omega}=g(x);
+	\]
+	\item[\textbf{Неймана}] граничные условия налагаются на \emph{производную} функции: 
+	\[
+		\left.\frac{\partial u}{\partial\vec n}\right\vert_{\partial\Omega} = g(x),
+	\]
+	$\vec n$ -- нормаль к $\partial\Omega$;
+	\item[\textbf{Ньютона}] смесь первых двух: 
+	\[
+		\left.\left(a\cdot u + b\cdot \frac{\partial u}{\partial\vec n}\right)\right\vert_{\partial\Omega} = g(x).
+	\]
+\end{enumerate}
+
+\section{Потенциалы простого и двойного слоя}
+Пусть $x\in\mathbb{R}^3$.
+Функция $\Phi(x) = |x|^{-1}$ является \emph{фундаментальным решением} уравнения Лапласа (в пространстве).~\cite[стр.~282]{Tikhonov}
+
+Пусть нам задана некоторая функция $\rho(x)$.
+\paragraph{Объёмный потенциал}
+$\rho: \Omega \mapsto \mathbb{R}$.
+\begin{equation}
+	u(x) = \int_\Omega \rho(y)\Phi(x-y)\rd V(y)
+\end{equation}
+\paragraph{Потенциал простого слоя}%~\cite[стр.~346, ур-е (26)]{Tikhonov}
+$\rho: \partial\Omega \mapsto \mathbb{R}$
+\begin{equation}
+	\bar{u}(x) = \int_{\partial\Omega}\rho(y)\Phi(x-y)\rd S(y).
+\end{equation}
+См.~\cite[стр.~346, ур-е (26)]{Tikhonov}, и~\cite[ур-е (5.1)]{Stanford:potential-theory}. \\
+Служит решением задачи Неймана.
+\paragraph{Потенциал двойного слоя}%~\cite[стр.~348, ур-е (28)]{Tikhonov}
+$\rho : \partial\Omega \mapsto \mathbb{R}$.
+\begin{equation}
+	\bar{\bar{u}}(x) = -\int_{\partial\Omega} \rho(x)\frac{\partial}{\partial\vec n}\Phi(x-y)\rd S(y).
+\end{equation}
+См.~\cite[стр.~348, ур-е (28)]{Tikhonov} и~\cite[ур-е (5.2)]{Stanford:potential-theory}. \\
+Служит решением задачи Дирихле.
+
+Собственно, решение задач Дирихле и Неймана сводится к отысканию функции $\rho(x)$, такой, что на границе $\partial\Omega$ она примыкает к граничному условию.~\cite[стр.~15]{Stanford:potential-theory} 
+
+\begin{rmk}[Откуда уравнения Фредгольма на стр. 15?]
+	Дело в том, что для потенциалов верны предельные уравнения~\cite[стр.~353, ур-е (39)]{Tikhonov}:
+	\begin{align*}
+		\lim_{x\in\Omega \to x_0}\bar{\bar{u}} &= \bar{\bar{u}}(x_0) + \pi\rho(x_0),\\
+		\lim_{x\in\Omega^c \to x_0}\bar{\bar{u}} &= \bar{\bar{u}}(x_0) - \pi\rho(x_0).
+	\end{align*}
+	и~\cite[стр.~359, ур-е (48)]{Tikhonov}
+	\begin{align*}
+		\lim_{x\in\Omega \to x_0}\frac{\partial\bar{u}}{\partial\vec n} &= \frac{\partial\bar{u}}{\partial\vec n}(x_0) + 2\pi\rho(x_0), \\
+		\lim_{x\in\Omega^c \to x_0}\frac{\partial\bar{u}}{\partial\vec n} &= \frac{\partial\bar{u}}{\partial\vec n}(x_0) - 2\pi\rho(x_0).
+	\end{align*}
+	Где $x_0\in\partial\Omega$.
+\end{rmk}
+
+\section{Задачи по поиску поля по распределению заряда}
+На сколько я понимаю, это задачи на применение \textbf{теоремы Гаусса} и \textbf{закона полного тока}. 
+Теорема Гаусса
+\[
+\int_S \vec E\cdot \rd\vec s = \frac{Q}{\epsilon_0}
+\]
+позволяет вычислять электрическое поле заряда  $Q$, распределённого в пространстве с плотностью $\rho$.
+
+Альтернативный для магнитного поля закон полного тока
+\[
+\oint_L\vec B\rd\vec\ell = \mu_0 I
+\]
+позволяет вычислять магнитное поле, создаваемое током $I$, распределённым в пространстве с некоторой плотностью $j$.
+
+\begin{thebibliography}{0}
+	\bibitem{Tikhonov}
+	А.Н. Тихонов, А.А. Самарский.
+	Уравнения математической физики.
+	\url{http://ijevanlib.ysu.am/wp-content/uploads/2018/01/converted_file_81e63622.pdf}
+	\bibitem{Stanford:potential-theory}
+	Potential theory.
+	\url{https://web.stanford.edu/class/math220b/handouts/potential.pdf}
+	\bibitem{Problems:Gauss+Stokes}
+	Теорема Гаусса  её применение к вычислению электрических полей простейших распределений плотности заряда.
+	\url{http://phys.spbu.ru/content/File/Library/studentlectures/Krylov/Gos_Ekzam-13-14-1.pdf}
+	\bibitem{Problem-solutions}
+	А.Н. Паршаков. Принципы и практика решения задач по общей физике.
+	\url{http://pstu.ru/files/file/oksana/2011/fakultety_i_kafedry/fpmm/prikladnaya_fizika/informacionnye_resursy/principy_i_praktika_resheniya_zadach_po_obschey_fizike__chast_2__elektromagnetizm.pdf}
+	\bibitem{Kuptsov}
+	А.М. Купцов. Теоретические основы электротехники. Решения типовыз задач.
+	\url{http://window.edu.ru/resource/045/76045/files/emp.pdf}
+\end{thebibliography}
+\end{document}

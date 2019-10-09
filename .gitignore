@@ -1,6 +1,8 @@
 .DS_Store
-/*
-!/**/*.tex
-!/**/*.pdf
-!/**/*.png
-!*.sty
+
+*.aux
+*.log
+*.out
+*.synctex.*
+*.toc
+curriculum
