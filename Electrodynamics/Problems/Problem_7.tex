@@ -1,0 +1,116 @@
+\documentclass{report}
+
+\usepackage{../../header}
+
+\title{Тема 4. Задача №7}
+
+\begin{document}
+	\maketitle
+	
+\begin{rmk}
+	Это задача \#126 из~\cite[стр.~83]{Budak}. (В задачнике есть указания и \emph{решения}...)
+\end{rmk}
+\paragraph{Условие задачи:} Найти напряжённость электриического поля внутри и вне сферы, верхняя половина которой находится под потенциалом $V_1$, а нижняя под потенциалом $V_2$.
+
+\section{Решение}
+\subsection{Формулируем задачу}
+Для того, чтобы найти распраделение напряжённости поля, достаточно найти распределение потенциала $V$, и применить формулу 
+\[
+\vec E = -\nabla V.
+\]
+
+Задача обладает сферической симметрией, следовательно для неё подходит сферическая система координат, и потенциал $V = V(r,\theta,\phi)$.
+
+В задаче отсутствует заряд; следодвательно $\div \vec{E} = \rho/\epsilon_0 = 0$, и нужно решить краевую задачу Дирихле (внутреннюю или внешнюю, соответственно) для уравнения Лапласа:
+\begin{align*}
+	\Delta V &= 0, ~ 0 \le \theta \le \pi, ~ 0 < r< r_0\\
+	V(r_0, \theta) &= f(\theta) =\begin{cases}
+		 V_1,~ 0 < \theta < \frac{\pi}{2},\\
+		 V_2,~ \frac{\pi}{2} < \theta< \pi.
+	\end{cases}
+\end{align*}
+
+Также, в задаче присутствует симметриия относительно угла $\phi$, в связи с чем потенциал ищем в виде $V = V(r, \theta) = R(r)\cdot \Theta(\theta)$. Как мы знаем, в этом случае задача Ш-Л для $\Theta(\theta)$ приобретает вид дифференциального уравнения Лежандра, которому удовлетворяют полиномы Лежандра. Дифференциальному уравнению для $R$ удовлетворяют решения вида $r^\mu$. Таким образом, решение иищем в виде
+\[
+V(r, \theta) = \sum_{n=0}^\infty A_n \left(\frac{r}{r_0}\right)^n P_n(\cos \theta).
+\]
+
+Задача сводится к отысканию коэффициентиов $A_n$.
+
+\subsection{Отыскание коэффиициентов}
+Запишем граничное условие:
+\begin{equation}\label{eq:boundary-condition}
+V(r_0, \theta) = \sum_{n=0}^\infty A_nP_n(\cos\theta) = f(\theta).
+\end{equation}
+
+Восользуемся тем, что полиномы Лежандра составляют ортогональный базис. Для отыскания коэффициента $A_k$ будем левую и правую части уравнения~\eqref{eq:boundary-condition} скалярно умножать на $P_k(\cos \theta)$.
+
+\begin{rmk}[Скалярное произведение функций]
+	Если функции $f,g: \Omega \mapsto \mathbb R$, то скалярное произведение 
+	\[
+	(f,g) = \int_{\Omega} f(x)g(x)\rd \Omega.
+	\]
+	Полиномы Лежандра определены на отрезке $\Omega=[-1, +1]$, и скалярное произведение (см. лекцию):
+	\[
+	(P_m, P_n) = \int_{-1}^1P_m(\cos\theta) P_k(\cos\theta)~\rd\cos\theta = \frac{2}{2n+1}\delta_{mn}.
+	\]
+\end{rmk}
+
+Таким образом:
+\begin{align}
+	\sum_{n=0}^\infty A_n(P_n,P_k) &= (f, P_k), \\
+	A_k \frac{2}{2k+1} &= \int_{-1}^1 f(\theta) P_k(\cos\theta)~\rd\cos\theta.
+\end{align}
+
+\paragraph{Случай $k=0$}
+Мы рассматриваем этот случай отдельно в том числе потому, что $P_0(x) = 1$ и $(r/r_0)^0 = 1$, и изначит этот член суммы просто $A_0$.
+
+Пишем:
+ \begin{align*}
+ 	A_0\cdot 2 &= \int_{-1}^1 f(\theta)~\rd\cos\theta 
+ 	\intertext{разделим интеграл на два, в соответствии с начальными условиями}
+ 	&= \int_{-1}^0V_2~\underbrace{\rd\cos\theta}_{\rd x} + \int_0^1 V_1~\underbrace{\rd\cos\theta}_{\rd x} \\
+ 	&= V_2 + V_1. \\ \\
+ 	A_0 &= \frac{V_1 + V_2}{2}
+ \end{align*}
+
+\paragraph{Пусть $k\neq0$}
+\begin{align*}
+	(f, P_k) &= \int_{-1}^1 f(\theta) P_k(\cos\theta)~\rd\cos\theta
+	\intertext{снова разделим интеграл на два}
+	&= V_2\int_{-1}^0P_k(\cos\theta)~\rd\cos\theta + V_1\int_0^1P_k(\cos\theta)~\rd\cos\theta
+	\intertext{обозначим $x \equiv \cos\theta$}
+	&= V_2\int_{-1}^0P_k(x)\rd x + V_1\int_0^1P_k(x)\rd x.
+	\intertext{Воспользуемся рекуррентным соотношением для производной полинома Лежандра\footnotemark}
+	\frac{\rd P_{k+1}}{\rd x} - \frac{\rd P_{k-1}}{\rd x} &= (2k+1)P_k(x).
+	\intertext{Тогда получим}
+	(f,P_k) &= \frac{1}{2k+1}\left[V_2\int_{-1}^0\rd(P_{k+1}-P_{k-1}) + V_1\int_0^1\rd(P_{k+1}-P_{k-1})\right] \\
+	&= \frac{1}{2k+1}\Big[V_2\big(P_{k+1}(x)-P_{k-1}(x)\big)\vert_{x=-1}^{x=0} + V_1\big(P_{k+1}(x)-P_{k-1}(x)\big)\vert_{x=0}^{x=1}\Big].
+	\intertext{Пользуемся соотношениями $P_k(1) = 1$, $P_k(-1) = (-1)^kP_k(1)$; остаются только пределы с $x=0$:}
+	(f, P_k) &= \frac{1}{2k+1}\Big[V_2\big(P_{k+1}(0) - P_{k-1}(0)\big) - V_1\big(P_{k+1}(0)-P_{k-1}(0)\big)\Big]\\
+	&= \frac{P_{k+1}(0) - P_{k-1}(0)}{2k+1}\left(V_2 - V_1\right) \\
+	&= A_k\frac{2}{2k+1}; \\\\
+	A_k &= \frac{P_{k+1}(0) - P_{k-1}(0)}{2} (V_2 - V_1).
+\end{align*}
+\footnotetext{Это соотношение указано в задачнике~\cite{Budak}.}
+
+Итого, решение:
+\begin{equation*}
+	\boxed{V(r,\theta) = \frac{V_1+V_2}{2} + \sum_{n=1}^\infty \frac{P_{n+1}(0) - P_{n-1}(0)}{2} (V_2 - V_1) \left(\frac{r}{r_0}\right)^n P_n(\cos\theta).}
+\end{equation*}
+
+\begin{rmk}
+	В учебнике форма несколько другая. Но в моём конспекте форма такая, и я понимаю ход решения, а значит это верно тоже.
+\end{rmk}
+
+\begin{thebibliography}{0}
+\bibitem{Budak}
+Б.М. Будак, А.А. Самарский, А.Н. Тихонов.
+Сборник задач по математической физике.
+\url{http://samarskii.ru/books/book1980.pdf}
+\bibitem{Legandre-poly}
+Полиномы Лежандра и их производные.
+\url{http://vadimchazov.narod.ru/lect_vvn/poleg.htm}
+\end{thebibliography}
+
+\end{document}
