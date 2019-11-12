@@ -1,0 +1,171 @@
+\documentclass[12pt]{report}
+\usepackage{../header}
+
+
+\title{Тема 5. Математические модели теплопроводности диффузии}
+
+\begin{document}
+\maketitle
+
+\begin{tcolorbox}
+  \textbf{УЧЕБНИК ДНЯ:}
+  А.Н. Тихонов, А.А Самарский. Уравнения математической физики.
+  Глава III: Уравнения параболического типа.
+  \url{http://old.pskgu.ru/ebooks/tihonov.html}
+\end{tcolorbox}
+
+\paragraph{Уравнение диффузии}
+\begin{equation*}
+  \frac{\partial}{\partial t}\rho = \nabla\cdot \left[D\nabla \rho\right] + f
+\end{equation*}
+Здесь 
+\begin{itemize}
+	\item  $\rho(\vec r,t)$ -- плотность диффундирующего вещества,
+	\item $D(\rho, \vec	r)$ -- коэффициент диффузии,
+	\item $f(\vec r,t)$ описывает источники вещества.
+\end{itemize}
+
+\paragraph{Уравнение теплопроводности}
+\begin{equation*}
+  c\rho\frac{\partial}{\partial t} T = \nabla\cdot\left[D \nabla T\right] + f
+\end{equation*}
+Где 
+\begin{itemize}
+	\item $T(\vec r, t)$ -- температура,
+	\item $D(\vec r)$ -- коэффициент теплопроводности,
+	\item $f(\vec r,t)$ описывает источники тепла,
+	\item $c$ -- теплоёмкость,
+	\item $\rho$ -- плотность вещества.
+\end{itemize}
+
+Собственно, при записи в общем виде -- это одно и то же уравнение.
+
+\begin{rmk}
+	Когда в задаче упоминается слово \emph{стационарный}, это значит, что производная по времени равна нулю:
+	\[
+	 	\frac{\partial}{\partial t} u \equiv 0.
+	\]
+	Если при этом коэффициент $D=\const$, получаем уравнение Пуассона:
+	\[
+	\Delta u = f.
+	\]
+\end{rmk}
+
+Чтобы решить уравнение параболического типа, нам нужны:
+\begin{enumerate}
+	\item граничные условия (Дирихле, Неймана, Робена);
+	\item начальные условия (задача Коши).
+\end{enumerate}
+
+В задачах из учебного плана нет неоднородных уравнений. Уравнения решаем методом разделения переменных:~\cite{diffusion-equation}
+\begin{enumerate}
+	\item находим функцию, удовлетворяющую граничным условиям;
+	\item раскладываем начальные условия в ряд Фурье,~\cite{Fourier-series} и отыскиваем коэффициенты.
+\end{enumerate}
+
+
+\section{Примеры}
+\subsection{Задача на отрезке}
+Решить уравнение теплопроводности
+\begin{align*}
+	4\frac{\partial^2T}{\partial z^2} &= \frac{\partial T}{\partial t}, \\
+	T(0, z) &= \sin^3 2\pi z - \sin 4\pi z,\\
+	T(t,0) &= T(t,2) =0.
+\end{align*}
+
+Всё стандартно, как описано в~\cite{diffusion-equation}. Решение уравнения сводится к разложению начальных условиий в ряд Фурье.
+
+\subsection{Задача в круге}
+Решить уравнение
+\begin{align}
+2\Delta T &= \frac{\partial T}{\partial t}, \label{eq:circle}\\
+T(0, r) &= 9 - r^2,\\
+T(t,3) &=0,
+\end{align}
+в круге (радиусом $r_0 = 3$).
+
+В этой задаче мы впервые встречаемся с функциями Бесселя.
+
+Перейдём в полярную систему коордиинат $(r,\phi)$. Судя по начальным условииям, задача обладает симметрией относительно угла $\phi$; таким образом, решение будем искать в виде 
+\[
+T(t,r) = R(r)W(t).
+\]
+
+Поскольку зависимости от $\phi$ нет, оператор Лапласа запишется как 
+\[
+\Delta T = \frac{1}{r}\frac{\rd }{\rd r}\left(r \frac{\rd T}{\rd r}\right),
+\]
+и задача Ш-Л для уравнения~\eqref{eq:circle} приобретёт вид
+\begin{align*}
+	\frac{r^{-1}\left[R' + rR''\right]}{R} = \frac12\frac{W'}{W} = \lambda = -a^2 = \const.
+\end{align*}
+
+Я принял $\lambda = -a^2$ для удобства, зная, что будет дальше. Запиишем уравнение для $R$:
+\begin{equation}\label{eq:almost-bessel}
+R'' + r^{-1}R' + a^2R = 0.
+\end{equation}
+
+Уравнение Бесселя выглядит вот так:~\cite[стр.~625]{TS:special-funcs}
+\begin{equation}\label{eq:bessel}
+	x^2y'' + xy' + (x^2 - \nu^2)y=0.
+\end{equation}
+
+Обратите внимание на ссылку~\cite{bessel-funcs}; и в особенности на \textbf{пункт 3} в \emph{Некоторые дифференциальные уравнения, приводимые к уравнению Бесселя}. Чтобы получить уравнение из пункта \textbf{3}, домножим уравнение~\eqref{eq:almost-bessel} на $r^2$, и добавим к нему член $-\nu^2R \equiv 0$, при $\nu=0$:
+\begin{equation}\label{eq:almost-bessel-1}
+	r^2R'' + rR' + (a^2r^2-\nu^2)R = 0.
+\end{equation}
+
+Решением уравнения~\eqref{eq:almost-bessel-1} является $R(r) = C_1J_\nu(ar) + C_2Y_\nu(ar)$, где $J_\nu, Y_\nu$ -- функции Бесселя первого и второго рода (порядка $\nu$) соответственно.
+
+\begin{rmk}
+	Обратите внимение, что $0\in\mathbb{Z}$ (целое число); поэтому решение записывается в виде суммы функциий Бесселя первого и второго родов. Если бы $\nu\notin\mathbb{Z}$, было бы
+	\[
+	R(r) = C_1J_\nu(ar) + C_2J_{-\nu}(ar).
+	\]
+\end{rmk}
+
+\begin{rmk}
+	Кому интересно, сведение уравнения~\eqref{eq:almost-bessel-1} к~\eqref{eq:bessel} производится путём замены
+	\begin{align*}
+		x &= ar, \\
+		\rd r &= a^{-1}\rd x, \\
+		\frac{\rd}{\rd r} &= a\frac{\rd}{\rd x},\\
+		\frac{\rd^2}{\rd r^2}&= a^2\frac{\rd^2}{\rd x^2}.
+	\end{align*}
+\end{rmk}
+
+Решение уравнения для $W$ даёт
+\[
+W(t) = C_3e^{-2a^2t}.
+\]
+
+Собираем решение для $T$:
+\[
+T(t,r) = \left[AJ_0(ar) + BY_0(ar)\right]e^{-2a^2t}.
+\]
+
+Теперь определим коэффициенты.
+\begin{enumerate}
+	\item Так как $Y_0(ar)$ не ограничена при стремлении к нулю, это значит $B=0$ (аргумент от нефизичности решения).
+	\item Поскольку $T(t,3) = R(3)W(t) = 0$, и мы \emph{требуем} $W(t) \not\equiv 0$,
+	значит $R(3) = 0$. Это условие позволяет нам определить $a$: потребуем, чтобы $3a = \mu^1_0$, где $\mu^1_0$ это первый корень $J_0$: $J_0(\mu^1_0) = 0$; $a = \mu^1_0/3$. 
+\end{enumerate}
+ 
+
+\begin{thebibliography}{0}
+	\bibitem{diffusion-equation}
+	The diffusion equation.
+	\url{https://www.uni-muenster.de/imperia/md/content/physik_tp/lectures/ws2016-2017/num_methods_i/heat.pdf}
+	\bibitem{Fourier-series}
+	Fourier Series.
+	\url{http://mathworld.wolfram.com/FourierSeries.html}
+	\bibitem{bessel-funcs}
+	Уравнение Бесселя.
+	\url{http://www.math24.ru/уравнение-бесселя.html}
+	\bibitem{TS:special-funcs}
+	А.Н. Тихонов, А.А Самарский. Уравнения математической физики.
+	Дополнение II: Специальные функции.
+	\url{http://old.pskgu.ru/ebooks/ts/ts_dop2_0.pdf}
+\end{thebibliography}
+      
+\end{document}
