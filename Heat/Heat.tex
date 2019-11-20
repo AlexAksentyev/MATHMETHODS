@@ -67,13 +67,23 @@
 \section{Примеры}
 \subsection{Задача на отрезке}
 Решить уравнение теплопроводности
-\begin{align*}
-	4\frac{\partial^2T}{\partial z^2} &= \frac{\partial T}{\partial t}, \\
-	T(0, z) &= \sin^3 2\pi z - \sin 4\pi z,\\
-	T(t,0) &= T(t,2) =0.
-\end{align*}
+\begin{align}
+	4\frac{\partial^2T}{\partial z^2} &= \frac{\partial T}{\partial t}, \label{eq:heat-main}\\
+	T(0, z) &= \sin 2\pi z - \sin 4\pi z, \label{eq:heat-initial}\\
+	T(t,0) &= T(t,2) =0.\label{eq:heat-boundary}
+\end{align}
 
-Всё стандартно, как описано в~\cite{diffusion-equation}. Решение уравнения сводится к разложению начальных условиий в ряд Фурье.
+Всё стандартно, как описано в~\cite{diffusion-equation}. Решаем метдом разделения переменных, полагая
+$T = Z(z)\cdot W(t)$. Решение уравнения сводится к разложению начальных условиий в ряд Фурье.
+
+\begin{rmk}{Ортогональность собственных функций}
+	Обратите внимание, что в начальных условиях~\eqref{eq:heat-initial}
+	задачи~\eqref{eq:heat-main}--~\eqref{eq:heat-boundary} стоят собственные функции
+	задачи Штурма-Лиувилля для функции $Z(z)$.
+	Собственные функции ортогональны~\cite[стр.~17]{UMF-problems-solutions}, поэтому 
+	в решении $T = \sum_{n=0}^{\infty} Z_n(z)W_n(t)$ останутся только два члена: при 
+	$Z_n(z) = \sin2\pi z$ и $Z_n(z) = \sin4\pi z$.
+\end{rmk}
 
 \subsection{Задача в круге}
 Решить уравнение
@@ -166,6 +176,10 @@ T(t,r) = \left[AJ_0(ar) + BY_0(ar)\right]e^{-2a^2t}.
 	А.Н. Тихонов, А.А Самарский. Уравнения математической физики.
 	Дополнение II: Специальные функции.
 	\url{http://old.pskgu.ru/ebooks/ts/ts_dop2_0.pdf}
+	\bibitem{UMF-problems-solutions}
+	С.В. Ревина, Л.И. Сазонов, О.А. Цывенкова.
+	Уравнения математической физики. Задачи и решения.
+	\url{http://www.mmcs.sfedu.ru/jdownload/finish/16-kafedra-vychislitelnoj-matematiki-i-matematicheskoj-fiziki/1419-uravneniya-matematicheskoj-fiziki-zadachi-i-resheniya-s-v-revina-l-i-sazonov-o-a-tsyvenkova}
 \end{thebibliography}
       
 \end{document}
