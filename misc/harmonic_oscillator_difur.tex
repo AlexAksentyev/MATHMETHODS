@@ -1,0 +1,54 @@
+\documentclass{report}
+
+\usepackage{../header}
+
+
+\title{Решениие уравнения гармонического осцииллятора}
+\begin{document}
+	\maketitle
+	
+Однородное уравнение гармонического осциллятора:
+\begin{equation}\label{eq:oscillator}
+x'' + \omega^2x = 0.
+\end{equation}
+
+Это линейное однородное уравнение второго порядка. Запишем характеристическое уравнение:
+\[
+\lambda^2 + \omega^2 = 0.
+\]
+
+Корни характеристического уравнения: $\lambda_{1,2} = \pm i\omega$, вследствие чего, решение
+уравнения~\eqref{eq:oscillator} запишется в виде
+\begin{align*}
+x(t) &= C_1 e^{i\omega t} + C_2 e^{-i\omega t}\\
+&= C_1(\cos\omega t + i\sin\omega t) + C_2(\cos\omega t - i\sin\omega t) \\ 
+&= (C_1+C_2)\cos\omega t + i(C_1-C_2)\sin\omega t.
+\end{align*}
+Здесь, коэффициенты $C_1,C_2\in\mathbb{C}$ -- комплексные числа. При этом (!) если мы требуем, чтобы $x(t)\in\mathbb{R}$,  то они комплексно-сопряжённые:
+\begin{align*}
+C_1 &= a + ib, \\
+C_2 &= a - ib.
+\end{align*}
+
+Сооответственно, 
+\begin{align*}
+	C_1 + C_2 &= 2a \equiv A\\
+	C_1 - C_2 &= 2ib \equiv iB,
+\end{align*} 
+и тогда
+\begin{align}
+x(t) &= A\cos\omega t - B\sin\omega t \notag\\
+&= A\cos\omega t + B_1\sin\omega t.
+\end{align}
+
+\begin{rmk}[Доказательство комплексной сопряжённости $C_1$ и $C_2$]
+	Если $x(t)\in\mathbb{R}$, то $x^*(t) = x(t)$ (комплексно-сопряжённое с собой). Тогда:
+	\begin{align*}
+		x^*(t) &= C_1^*(e^{i\omega t})^* + C_2^*(e^{-i\omega t})^* \\
+		&= C_1^* e^{-i\omega t} + C_2^* e^{i\omega t} \\
+		&= C_2 e^{-i\omega t} + C_1 e^{i\omega t}.
+	\end{align*}
+	Поскольку $e^{i\omega t}\perp e^{-i\omega t}$:
+	$C_1^* = C_2$.
+\end{rmk}
+\end{document}
