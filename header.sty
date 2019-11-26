@@ -18,13 +18,26 @@
 \newcommand{\rd}{\mathrm d}
 
 \let\vec\oldvec
-\newcommand{\vec}[1]{\mathbf{#1}}
+\newcommand{\vec}[1]{\boldsymbol{#1}}
 
 \let\div\olddiv
 \newcommand{\div}{\mathrm{\mathbf{div}}}
 \newcommand{\grad}{\mathrm{\mathbf{grad}}}
 
 \newcommand{\const}{\mathrm{const}}
+\newcommand{\avg}[1]{\langle{#1}\rangle}
 
+\newtheoremstyle{custom-style}%                % Name
+{}%                                     % Space above
+{}%                                     % Space below
+{\normalfont}%                                     % Body font
+{}%                                     % Indent amount
+{\bfseries}%                            % Theorem head font
+{.}%                                    % Punctuation after theorem head
+{ }%                                    % Space after theorem head, ' ', or \newline
+{}%       
+
+
+\theoremstyle{custom-style}
 \newtheorem{thm}{Теорема}
 \newtheorem{rmk}{Замечание}
