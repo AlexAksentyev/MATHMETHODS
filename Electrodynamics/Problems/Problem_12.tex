@@ -1,0 +1,53 @@
+\documentclass{report}
+
+\usepackage{../../header}
+
+
+\title{Тема 4. Задача 12}
+
+\begin{document}
+	\maketitle
+	
+\paragraph{Условие задачи: }
+Решить уравнение Пуассона \textbf{в кольце}
+\begin{align*}
+	\Delta u &= 8r^{-5}\sin\phi, \\
+	u(1,\phi) &= \sin\phi, \\
+	u'_r(2,\phi) &= -12\sin\phi.
+\end{align*}
+
+Решение ищем в виде суммы общего решения \emph{однородного уравнения} с \emph{неоднородными граничными условиями},
+и частного решения \emph{неоднородного уравнения} с \emph{однородными граничными условиями}.
+
+\section{Отыскание решения однородного уравнения}
+...
+\section{Отыскание частного решения}
+Будем решать частное решение уравнения в виде функции в правой части: 
+\[
+u_1(r,\phi) = W(r)\sin\phi.
+\]
+
+Поставив $u_1$ в исходное уравнение и сократим $\sin\phi$:
+\[
+\cancel{\sin\phi}\frac1r[W' + rW''] - \frac{W}{r^2}\cancel{\sin\phi} = 8r^{-5}\cancel{\sin\phi}.
+\]
+
+В итоге, надо решить уравнение
+\begin{equation}\label{eq:Difur}
+	r^2W'' + rW' - W = 8r^{-3}.
+\end{equation}
+
+Введём замену $r = e^t$. Напоминаю, что:
+\begin{align*}
+	\frac{\rd t}{\rd r} &= \frac1r, \\
+	\frac{\rd W}{\rd r} &= \frac{\rd W}{r\rd t}, \\
+	\frac{\rd^2 W}{\rd r^2} &= \frac{\rd^2 W}{r^2\rd t^2}.
+\end{align*}
+
+\href{http://www.studentlibrary.ru/doc/bauman_0018-SCN0006/001.html}{Здесь} подобное уравнение решается.
+Каким образом они свели (5.2) к (5.3) через эту замену я не очень понял. У меня $W'$ не уходит.
+
+Но в целом, понятно, что получаем диффур, который надо решить.
+
+
+\end{document}
