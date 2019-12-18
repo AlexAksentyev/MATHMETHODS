@@ -1,0 +1,95 @@
+\documentclass{report}
+
+\usepackage{../../header}
+\newcommand{\w}{\omega}
+
+\title{Решение неоднородного уравнения}
+
+\begin{document}
+	\maketitle
+
+\paragraph{Условие задачи:}
+Нужно решить неоднородное, одноменрое волновое уравнение с нулевыми начальными и граничными условиями:
+\begin{align}
+	u_{tt} &= a^2u_{xx} + Axt,~x\in[0,\ell],~t<0 \label{eq:the-problem}\\
+	u(0,t) &= u_x(\ell, t) = u(x,0) = u_t(x, 0) = 0.
+\end{align}
+
+В данном случае всё достаточно просто: сначала ищется \emph{общее} решение однородного уравнения, 
+затем \emph{частное} решение неоднородного. 
+
+\section{Общая идеология отыскания частного решения неоднородного уравнения}
+Пусть нам дано неоднородное уравнение
+\begin{equation}\label{eq:general}
+u_{tt} + a^2 u_{xx} + f(x,t),~ x\in[0, \ell],
+\end{equation}
+у которого $X_k(x)$ -- собственные решения \emph{однородного} уравнения.
+Тогда есть смысл искать частное решение неоднородного уравнения в виде
+\begin{equation}\label{eq:particular_solution}
+u(x,t) = \sum_k W_k(t)X_k(x).
+\end{equation}
+
+Действительно, поскольку 
+\begin{equation}\label{eq:eigenfunction-property}
+X_k^{''} + \lambda_kX_k = 0,
+\end{equation}
+имеем:
+\begin{align}
+	\sum_kW_k''X_k &= a^2\sum_kW_kX_k'' + f, \tag{из ур.~\eqref{eq:general}+~\eqref{eq:particular_solution}}
+	\intertext{Перенесём сумму из правой части в левую, 
+		и воспользуемся равенством~\eqref{eq:eigenfunction-property}:}
+	\sum_k\left(W_k'' + a^2\lambda_kW_k\right)X_k &= f.
+	\intertext{Возьмём скалярное произведение левой и правой частей уравнения с собственной функцией $X_n$:}
+	(W_n'' + a^2\lambda_nW_n)\cdot||X_n||^2 &= (f, X_n),~\text{где}\\
+	(f, X_n) &= \int_0^\ell f(x,t)X_n(x)\rd x, \\
+	||X_n||^2 &= (X_n, X_n),
+	\intertext{и поскольку собственные функции ортогональны:}
+	(X_n, X_m) &= 0,~n\neq m.
+\end{align}
+
+В итоге, для функции-коэффициента разложения $W_k(t)$ получим дифференциальное уравнение
+\begin{equation}\label{eq:coeff-difur}
+	W_k'' + a^2\lambda_kW_k = \frac{(f, X_k)}{||X_k||^2}.
+\end{equation}
+
+Решаем, получаем удовольствие.
+
+\section{Решение задачи~\eqref{eq:the-problem}}
+Разделив переменные в уравнении~\eqref{eq:the-problem} ($u(x,t) = T(t)X(x)$),  мы найдём собственные решения 
+\[
+X_k(x) = \sin\w_kx,~\text{где}~\w_k = \frac{\pi}{2\ell}(2k+1), k=0,1,2,\dots.
+\]
+\begin{rmk}[Собственные решения уравнения для $T(t)$]
+	Я пока не понял суть проблемы, но для $T(t)$ мы опять имеем волновое уравнение, 
+	однако начальные условия таковы, что решение тривиальное, т.е. $T(t)\equiv 0$.
+	
+	Возможно, это связано с тем, что условия не начальные, а \emph{конечные} ($t<0$); однако в моих
+	институтских лекциях тоже есть уравнения с $t<0$, и они решаются так же.
+	
+	Физически же, условия на $T(t)$ говорят, что и координата, и скорость, в некоторый момент времени равны нулю. 
+	Поскольку $T(t)$ гармоническая функция (исходя из уравнения, которому она удовлетворяет), ускорение 
+	в этот момент времени тоже равно 0. Если бы точка 0 была начальной, не было бы ни каких вопросов 
+	почему решение тождественно равно нулю. Но поскольку $f(x+\rd x) \approx f'\rd x$, и $f'(x) = f'' (x) =0$,
+	то в момент времени $t=0-$, $T(0-)=0$, и т.д.
+	
+	В общем, если кто поймёт, где я ошибаюсь -- тому \textbf{+5 баллов} на экзамене.
+\end{rmk}
+
+Для гармонических функций, $||X_k||^2 = \ell/2$, и по сути, нам нужно просто 
+разложить функцию $x$ в ряд Фурье:
+\begin{align*}
+	(f,X_k) &= \int_0^\ell At\cdot x\sin\w_k x\rd x = -\frac{At}{\w_k}\int_0^\ell x\rd\cos\w_kx.\\
+	\int_0^\ell x\rd\cos\w_kx &= \int_0^\ell\rd\left(x\cos\w_kx\right) - \int_0^\ell\cos\w_kx\rd x \\
+	&= \underbrace{x\cos\w_kx\Bigg\vert_0^\ell}_{=0} - \frac{1}{\w_k}\underbrace{\int_0^\ell\rd\sin\w_kx}_{\sin\w_k\ell=(-1)^k};\\
+	(f, X_k) &= (-1)^k \cdot \frac{At}{\w_k^2}.
+\end{align*}
+
+По итогу, надо решить такой дифур:
+\begin{equation}\label{eq:final-difur}
+	W_k''(t) + (a\w_k)^2W_k(t) = (-1)^k\cdot C_k\cdot t,~k=0,1,2,\dots.
+\end{equation}
+
+\subsection{Как решить дифференциальное уравнение~\eqref{eq:coeff-difur}}
+
+
+\end{document}
