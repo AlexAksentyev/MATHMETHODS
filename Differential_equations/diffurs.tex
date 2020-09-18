@@ -31,7 +31,7 @@
 Уравнение~\eqref{eq:Laplace} решается (при благоприятном стечении обстоятельств\footnote{То есть, когда геометрия области позволяет это сделать.}) методом разделения переменных.	При этом возникает так называемая задача Штурма-Лиувилля (Ш-Л). Решение задачи Ш-Л -- это решение системы \textbf{дифференциальных уравнений}. Вот для этого и существует Тема 1.
 
 \section{Основные понятия}
-\emph{Неоднородным} дифференциальным уравнением порядка $n$ называется уравнение вида
+\emph{Неоднородным} дифференциальным уравнением порядка $n$ называется уравнение ``с правой частью,'' т.е. уравнение вида
 \begin{equation}\label{eq:inhomogenous}
 	F\left(x,y,y',y'',\dots, y^{(n)}\right) = g(x).
 \end{equation}
@@ -54,10 +54,10 @@ F\left(x,y,y',y'',\dots, y^{(n)}\right) = 0.
 	\frac{\rd y}{\rd x} = f(x,y),
 	\end{equation*}
 	оно называется \emph{разрешённым} относительно производной; а при записи в форме
-	\begin{equation*}
+	\begin{equation}\label{eq:differential-form}
 	M(x,y)\rd x + N(x,y)\rd y = f(x,y).
-	\end{equation*}
-	уравнением, записанным в \emph{полных дифференциалах}.
+	\end{equation}
+	уравнением, записанным в \emph{дифференциалах}.
 \end{rmk}
 
 \begin{defn}[Задача Коши]
@@ -87,7 +87,7 @@ F\left(x,y,y',y'',\dots, y^{(n)}\right) = 0.
 	y_{\text{о.н.}} = y_{\text{о.о.}} + y_{\text{ч.н.}}.
 \end{equation}
 
-\section{Типы уравнений и методы их решения}
+\section{Типы уравнений и методы их решения~\cite{Kyasov}}
 Мы рассмотрим следующие типы уравнений:
 \begin{enumerate}
 	\item с разделяющимися переменными;
@@ -100,19 +100,19 @@ F\left(x,y,y',y'',\dots, y^{(n)}\right) = 0.
 \begin{equation*}
 	y' = \frac{\rd y}{\rd x} = \phi(x)\psi(y).
 \end{equation*}
-Решаются элементарно: нужно перебросить всё, что с $x$ в одну сторону от равно, всё, что с $y$ -- в другую. Получим~\cite{Kyasov}
+\emph{Решаются} элементарно: нужно \emph{перебросить} всё, что с $x$ в одну сторону от равно, всё, что с $y$ -- в другую. Получим
 \[
 	\frac{\rd y}{\psi(y)} = \phi(x)\rd x.
 \]
 
 Интегрируем; записываем ответ.
 
-\textbf{Пример.} (Филиппов 51).
+\paragraph{Пример} (Филиппов 51).
 \[
 xy\rd x + (x+1)\rd y = 0.
 \]
 
-Во-первых, поделим уравнение на $y(x+1)$:
+Во-первых, поделим уравнение на $y(x+1)$:\footnote{При этом возникает вероятность, что формула, которую мы получим после интегрирования, не будет включать решение $(x,y) = (-1, 0)$; его в таком случае надо будет указать отдельно.}
 \[
   \frac{x}{x+1}\rd x = -\frac{\rd y}{y}.
 \]
@@ -131,12 +131,131 @@ y/t &= e^{-t +  \tilde{C}} = e^{-x -1 + \tilde{C}} =  \hat{C}e^{-x}, \\
 y &= \hat{C}(x+1)e^{-x}. \qed
 \end{align*}
 
+\subsection{Однородные уравнения}
+Под однородными в данном случае понимаются уравнения $y' = f(x,y)$ у которых правая часть удовлетворяет \emph{условию однородности}:
+\[
+	f(tx,ty) = t^m f(x,y),
+\]
+где $m$ -- порядок однородности.
+
+Чтобы \emph{решить} такое уравнение достаточно сделать \emph{замену} $y = xt$.
+
+\begin{rmk}\label{rmk:homogenous-equation-form}
+	Однородные уравнения также можно представить в виде $y' = f(y/x)$.
+\end{rmk}
+
+\paragraph{Пример} (Филиппов 108).
+\[
+	xy' = y - xe^{y/x}.
+\]
+Поделим всё на $x$ и увидим, что перед нами действительно однородное уравнение в форме из Замечания~\ref{rmk:homogenous-equation-form}:
+\[
+	y' = \frac yx - e^{\frac yx}.
+\]
+Делаем замену $t = y/x$; тогда $y' = t'x + t$ и уравнение переписывается как
+\[
+	t'x + t = t - e^t
+\]
+сокращаем лишние $t$ и получаем
+\[
+	\frac{\rd t}{\rd x}x = - e^t.
+\]
+В принципе, это уже уравнение с разделяющимися переменными. Единственное, что я предлагаю \emph{поменять местами зависимую и независимую переменные}; т.е. искать решение не в форме $y = y(x)$, а в форме $x = x(y)$. Поэтому, вместо уравнения $\frac{\rd t}{\rd x} = f(x,t)$ будем решать уравнение $\frac{\rd x}{\rd t} = f^{-1}(x,t)$:
+\[
+	\frac{\rd x}{x} = -e^{-t}\rd t.
+\]
+Интегрируем:
+\begin{align*}
+\int \rd\ln x &= \int \left(-e^{-t}\right)\rd t, \\
+\ln Cx &= e^{-t} = e^{-y/x}, \\
+-y/x &= \ln\ln Cx;
+\end{align*}
+записываем ответ:
+\[
+	y = -x\ln\ln Cx.
+\]
+
+\begin{rmk}[Немного практической философии]
+	Я хочу обратить ваше внимание на то, что нет никаких причин, чтобы не поменять ролями независимую и зависимую переменные. Во-первых, это \emph{легитимный трюк} решения задачи; во-вторых -- у этого есть некоторое философское обоснование. 
+	
+	Дело в том, что есть мнение, что у природы нет причинно-следственных связей. (Скажем, так считал Юм.) В этом случае, независимая и зависимая переменные не являются двумя отдельными единицами бытия; вместо этого они всего лишь стороны одной и той же медали. Я процитирую в этом отношении Бертрана Рассела~\cite[Lecture V]{Russell}:
+	\begin{quote}
+		The traditional conception of cause and effect is one which modern science shows to be fundamentally erroneous, and requiring to be replaced by a quite different notion, that of LAWS OF CHANGE. ... Thus, if we are to take the cause as one event and the effect as another, both must be shortened indefinitely. The result is that we merely have, as the embodiment of our causal law, a certain direction of change at each moment. Hence we are brought to \emph{differential equations} as embodying causal laws.
+	\end{quote}
+	Это, разумеется, связано с математизацией природы.\footnote{По этому поводу, см. у Хайдеггера~\cite[стр.~413--414]{Heidegger}: ``The classical example for the historical development of a science and even for its ontological genesis, is the rise of \emph{mathematical physics}. What is decisive for its development does not lie in its rather high esteem for the observation of `facts', nor in its `application' of mathematics in determining the character of natural processes; it lies rather in the way in which Nature herself is matematically projected.''} Потеря причинно-следственной связи, на сколько я понимаю происходит именно здесь. \qed
+\end{rmk}
+
+\section{Уравнения в \emph{полных} дифференциалах}
+Уравнением в полных дифференциалах называется уравнение формы~\eqref{eq:differential-form}, в котором левая часть может быть заисана как дивверенциал некоторой функции $F(x,y)$:
+\begin{align}
+	M(x,y)\rd x + N(x,y)\rd y &= \rd F(x,y) \notag\\
+										  &= \frac{\partial F}{\partial x}\rd x + \frac{\partial F}{\partial y}\rd y.\label{eq:full-differential-form}
+\end{align}
+
+Есть \emph{критерий} по которому можно судить, существует ли такая функция $F(x,y)$:
+\[
+	\forall (x,y)\in D \Bigg[\frac{\partial M(x,y)}{\partial y} = \frac{\partial N(x,y)}{\partial x}\Bigg]
+\]
+
+\begin{rmk}[Откуда взялся этот критерий]
+	Посмотрим снова на уравнение~\eqref{eq:full-differential-form}. В самой правой части мы видим частные производные $F$ по $x$ и по $y$. Как известно из курса матанализа, в смешанных производных порядок дифференцирования не имеет значения, так что 
+	\[
+		\frac{\partial^2 F}{\partial x\partial y} \equiv \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x} \equiv \frac{\partial^2 F}{\partial y\partial x}. 
+	\]
+	\qed
+\end{rmk}
+
+Чтобы решить уравнение в полных дифференциалах -- то есть найти функцию $F(x,y)$, нужно просто последовательно интегрировать её производные $F_x'$, $F_y'$. 
+
+Обратите внимание, что если изначально уравнение однородное, т.е. мы решаем $\rd F(x,y) = 0$, то
+\emph{ответом} будет $\int \rd F(x,y) = \boxed{F(x,y) = C}$.
+
+\paragraph{Пример} (Филиппов 186).
+\[
+	2xy\rd x + (x^2 - y^2)\rd y = 0
+\]
+Посмотрим на критерий:
+\begin{align*}
+	(2xy)'_y &= 2x, \\
+	(x^2 - y^2)'_x &= 2x,
+\end{align*}
+значит перед нами действительно уравнение в частных производных.
+
+Решаем. Путь 1: исходим из того, что $F_x' = 2xy$.
+\begin{align*}
+	F &= \int 2xy\rd x = x^2y + C(y), \\
+	\Big(x^2y + C(y)\Big)'_y &= x^2 + C'(y) = x^2 - y^2;
+\shortintertext{значит}
+	C'(y) &= -y^2, \\
+	C(y) &= - \int y^2\rd y = -\frac{y^3}{3} + C_1.
+\shortintertext{В итоге}
+	F(x,y) &= x^2y -\frac{y^3}{3} + C_1, 
+\shortintertext{и ответ:}
+	3x^2y - y^3 &= C.
+\end{align*}
+
+Путь 2: исходим из $F_y' = x^2 - y^2$.
+\begin{align*}
+	F &= \int (x^2 - y^2)\rd y = x^2y - \frac{y^3}{3} + C(x), \\
+	\Big(x^2y-\frac{y^3}{3} + C(x)\Big)'_x &= 2xy; \\
+	2xy + C'(x) &= 2xy, \\
+	C'(x) &= 0 \Rightarrow C(x) = C_1.
+\shortintertext{Следовательно, ответ выглядит как}
+	F(x,y) &= x^2y - \frac{y^3}{3} + C_1 = C_2, \\
+	3x^2y - y^3 &= C.
+\end{align*}
+
 \begin{thebibliography}{9}
 	\bibitem{Kyasov}
-	С.Н. Киясов, В.В. Шурыгин. Дифференциальные уравнения. Основы теории, методы решения задач.
+	С.Н. Киясов, В.В. Шурыгин. \emph{Дифференциальные уравнения. Основы теории, методы решения задач.}
 	\url{https://kpfu.ru/docs/F931321200/kiyasov_shurygin.pdf}
 	\bibitem{Ipatova}
-	В.М. Ипатова, О.А. Пыркова, В.Н. Седов. Дифференциальные уравнения. Методы решений.
+	В.М. Ипатова, О.А. Пыркова, В.Н. Седов. \emph{Дифференциальные уравнения. Методы решений.}
 	\url{https://mipt.ru/education/chair/mathematics/upload/636/f_5ztibp-arphdx5wxdp.pdf}
+	\bibitem{Russell}
+	Bertrand Russell. \emph{The Analysis of Mind.}
+	\url{https://www.gutenberg.org/files/2529/2529-h/2529-h.htm#link2H_4_0008}
+	\bibitem{Heidegger}
+	Martin Heidegger. \emph{Being and Time}. [Macquarrie and Robinson translation 1962 edition] \url{http://pdf-objects.com/files/Heidegger-Martin-Being-and-Time-trans.-Macquarrie-Robinson-Blackwell-1962.pdf}
 \end{thebibliography}
 \end{document}
