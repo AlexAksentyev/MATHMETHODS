@@ -1,0 +1,112 @@
+\documentclass[12pt]{report}
+\usepackage{../header}
+
+\begin{document}
+\paragraph{Филиппов 52}
+\[
+	\sqrt{y^2 + 1}\rd x = xy\rd y.
+\]	
+Решаем:
+\begin{align*}
+	\frac{\rd x}{x} &= \frac{y\rd y}{\sqrt{y^2+1}}, \\
+	\rd\ln x &= \frac12 \frac{\rd y^2}{\sqrt{y^2+1}}, ~~ t = y^2 + 1;
+\shortintertext{воспользуемся тем, что $\rd u = \rd (u + \const)$:}
+	\rd \ln x = \frac12 \frac{\rd t}{\sqrt t} = \rd \sqrt t, \\
+	\ln C|x| = \sqrt t = \sqrt{y^2 + 1}.
+\end{align*}
+
+\paragraph{Филиппов 53}
+\begin{equation}\label{eq:Cauchy}
+	\begin{cases}
+	(x^2 - 1)y' + 2xy^2 &= 0, \\
+	y(0) &= 1.
+	\end{cases}
+\end{equation}
+Решение:
+\begin{align*}
+	2xy^2 &= (1-x^2)y', \\
+	\frac{2x}{1-x^2}\rd x &= \frac{\rd y}{y^2}, \\
+	\frac{\rd (x^2 - 1)}{1 - x^2} &= -\rd\left(\frac1y\right),
+\shortintertext{заменим $t = x^2-1$}
+	\frac{\rd t}{t} &= \rd\ln t = \rd y^{-1}, \\
+	\ln C|x^2-1| = y^-1, \\
+\shortintertext{следовательно \emph{общее} решение:}
+	y\ln C|x^2-1| &= 1, ~~y = 0 ~~ \text{(потерянное при делении решение)}.
+\end{align*}
+Ищем частное решение. Для этого удобнее всего вынести константу из под знака логарифма:
+\[
+y\cdot \left(\ln|x^2-1| + \underbrace{\ln C}_{C_1}\right) = 1.
+\]
+\begin{align*}
+	y(0)\cdot\left(\underbrace{\ln|0^2-1|}_{\ln 1 = 0} + C_1\right) &= 1, \\
+	C_1 &= 1. 
+\end{align*}
+Итого, \emph{частное} решение, удовлетворяющее задаче Коши~\eqref{eq:Cauchy}:
+\[
+ 	y\cdot\left(\ln|x^2| + 1\right) = 1.
+\]
+
+\paragraph{Филиппов 101}
+\[
+	(x+2y)\rd x - x\rd y = 0.
+\]
+Решение:
+\begin{align*}
+	y' &= 1 + 2\cdot \frac yx = 1 + 2t, \\
+	y' &= t'x + t, \\
+	t'x + t &= 1 + 2t, \\
+	\frac{\rd t}{\rd x}x &= 1 + t, \\
+	\frac{\rd x}{x} &= \frac{\rd(t+1)}{t+1}, \\
+	\rd\ln x &= \rd\ln(t+1), \\
+	C_1 + \ln x &= \ln(1 + \frac yx) = \ln(x + y) - \ln x, \tag{$\ln\frac ab = \ln a - \ln b$} \\
+	\ln(x+y) &= \ln x^2 + \underbrace{\ln C}_{C_1} = \ln Cx^2, \tag{$a\cdot \ln x = \ln x^a$} \\
+	x+y &= Cx^2,~~ x=0.
+\end{align*}
+
+\paragraph{Филиппов 102}
+\[
+	(x-y)\rd x + (x+y)\rd y = 0.
+\]
+Решение:
+\begin{align*}
+	y' &= \frac{y-x}{y+x} = \frac{t-1}{t+1} = t'x + t, \\
+	\frac{\rd t}{\rd x}x &= -\frac{1+t^2}{1+t}, \\
+	\frac{1+t}{1+t^2}\rd t &= -\rd\ln x, \\\\
+	\underbrace{\frac{\rd t}{1+t^2}}_{\rd\arctan t} + \frac 12\underbrace{\frac{\rd(t^2+1)}{t^2+1}}_{\frac12\rd\ln(1+t^2)} &= -\rd\ln x, \\
+	\arctan\frac yx + \frac12\ln(1 + \frac{y^2}{x^2}) + \underline{\ln x} &= \tilde{C},
+\intertext{Домножим левую и правую части уравнения \underline{на 2} и заменим $\ln\frac{x^2 + y^2}{x^2} = \ln(x^2+y^2) - \ln x^2$}
+	2\arctan\frac yx + \underbrace{\ln(x^2 + y^2) - \ln x^2 } _{\ln\frac{x^2+y^2}{x^2}}+ \underline{\ln x^2} &= C.
+\end{align*}
+Ответ:
+\[
+	\ln(x^2 + y^2) = C - 2\arctan\frac yx.
+\]
+
+\paragraph{Филиппов 189}
+\[
+	\frac yx\rd x + (y^3 + \ln x)\rd y = 0.
+\]
+Видим, что 
+\[
+	\begin{cases}
+	F_y' &= y^3 + \ln x, \\
+	F_x' &= y/x.
+	\end{cases}
+\]
+Решаем:
+\begin{align*}
+	F &= \int(y^3 + \ln x)\rd y = y^4/4 + y\ln x + C(x).
+\shortintertext{Возьмём производную вышестоящего выражения и приравняем её к $F_x'$:}
+	y/x + C'(x) &= F_x' = y/x;
+	C'(x) &= 0 \Rightarrow C = C_1.
+\shortintertext{Соответственно:}
+	F(x,y) &= y^4/4 + y\ln x + C_1;
+\shortintertext{решением является}
+	F(x,y) = C, \\
+	y^4/4 + y\ln x &= C - C_1 \equiv C,
+\end{align*}
+и домножив всё на 4 для красоты получим ответ:
+\[
+	y^4 + 4y\ln x = C.
+\]
+\end{document}
