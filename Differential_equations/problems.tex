@@ -109,4 +109,142 @@ y\cdot \left(\ln|x^2-1| + \underbrace{\ln C}_{C_1}\right) = 1.
 \[
 	y^4 + 4y\ln x = C.
 \]
+
+\paragraph{Филиппов 511}
+Решить 
+\[
+y'' + y' - 2y = 0.
+\]
+Составляем характеристическое уравнение:
+\[
+\lambda^2 + \lambda - 2 = 0,
+\]
+с корнями $\lambda_1 = 1$, $\lambda_2=-2$, и записываем ответ:
+\[
+y(x) = C_1e^x + C_2e^{-2x}.
+\]
+
+\paragraph{Филиппов 534}
+\begin{equation}\label{eq:initial-534}
+y'' + y = 4xe^x.
+\end{equation}
+Фаза 1: решаем соответствующее однородное уравнение.
+Характеристическое уравнение $\lambda^2+1=0$ имеет сопряжённые комплексные корни $\lambda_{1,2} = \pm i$, и значит ответ запишется в виде
+\[
+	y(x) = C_1\cos x + C_2\sin x.
+\]
+
+Фаза 2: ищем частное решение неоднородного уравнения. Поскольку правая часть имеет форму $P_m(x)e^{\gamma x}$, решение можно найти \emph{методом неопределённых коэффициентов} (см.~\cite[стр.~50, ур-е (4)]{Filippov}). Частное решение ищем в виде 
+\begin{align*}
+	y_1(x) &= (A+Bx)e^x, \\
+	y_1' &= (A+B)e^x + Bxe^x, \\
+	y_1'' &= (A+2B)e^x + Bxe^x.
+\end{align*}
+Подставляем в уравнение~\eqref{eq:initial-534}:
+\begin{align*}
+	\underbrace{(A+2B)e^x + Bxe^x}_{y''} + \underbrace{Ae^x + Bxe^x}_{y} &= 4xe^x, \\
+	2(A+B)e^x + 2Bxe^x &= 4xe^x.
+\end{align*}
+Приравнивая коэффициенты при подобных членах, получим:
+\[
+	\begin{cases}
+	A &= -B, \\
+	B &= 2.
+	\end{cases}
+\]
+Частное решение $y_1(x) = (2x-2)e^x$, и полный ответ: 
+\[
+	y(x) = C_1\cos x + C_2\sin x + (2x-2)e^x.
+\]
+
+\paragraph{Филиппов 539}
+РЕШИТЬ.
+
+\paragraph{Филиппов 589}
+Решить уравнение Эйлера
+\[
+	x^2y'' - 4xy + 6y = 0.
+\]
+Такие уравнения решаются заменой $x = e^t$; соответственно:
+\begin{align*}
+	\rd x &= e^t\rd t, \\
+	\frac{\rd }{\rd x} y &= \frac{\rd y}{\rd t}\cdot \frac{\rd t}{\rd x} = \dot y e^{-t}, \\
+	\frac{\rd}{\rd x} \left(\dot y e^{-t}\right) &= \left[\frac{\rd \dot y}{\rd t}\frac{\rd t}{\rd x}\right]e^{-t} + \dot y \left[\frac{\rd e^{-t}}{\rd t}\ t'\right] \\
+	&= \ddot y e^{-2t} - \dot y e^{-2t} = e^{-2t}\left(\ddot y - \dot y\right).
+\end{align*}
+Подставляем в изначальное уравнение:
+\begin{align*}
+\cancel{e^{2t}e^{-2t}}(\ddot y - \dot y) - 4\cancel{e^te^{-t}}\dot y + 6y &= 0; \\
+\ddot y(t) - 5\dot y(t) + 6y(t) &= 0.
+\end{align*}
+Дальше решаем это однородное уравнение:
+\[
+	\lambda^2 - 5\lambda + 6 = 0;~~~~ \lambda_{1,2} = 2,3.
+\]
+И значит 
+\begin{align*}
+	y(t) &= C_1e^{2t} + C_2e^{3t}.
+\intertext{Поскольку из замены $t = \ln x$, и $k\cdot\ln x = \ln x^k$, при возвращении к переменной $x$ получим}
+	y(x) &= C_1x^2 + C_2x^3.
+\end{align*}
+
+\paragraph{Филиппов 575}
+\[
+y'' - 2y' + y = \frac{e^x}{x}.
+\]
+Фаза 1.
+Характеристическое уравнение $\lambda^2-2\lambda+1=0$ имеет единственный кратный корень $\lambda = 1$; соответственно, ФСР -- $\lbrace e^x, xe^x\rbrace$, и общее решение однородного уравнения 
+\[
+	y(x) = C_1e^x + C_2 xe^x.
+\]
+
+Фаза 2.
+Ищем частное решение $y_1(x)$ неоднородного уравнения в виде $y_1(x) = u_1(x)e^x + u_2(x)xe^x$. Составляем систему
+\[
+\begin{cases}
+	u_1'e^x + u_2'xe^x &= 0, \\
+	u_1'e^x + u_2'\left(e^x+xe^x\right) &= \frac{e^x}{x}.
+\end{cases}
+\]
+В матричном виде это выглядит как
+\[
+\begin{pmatrix}
+e^x & xe^x \\
+e^x & (x+1)e^x
+\end{pmatrix} \vec u' = \begin{pmatrix}
+0 & e^x/x
+\end{pmatrix}.
+\]
+Вычисляем определитель Вронского: $\Delta = e^{2x}(x+1) - xe^{2x} = e^{2x} > 0$. Как и следовало ожидать, вронскиан ФСР не равен нулю.
+
+По методу Кронекера, вычисляем определители для искомых функций:
+\begin{align*}
+	\Delta_{u_1'} &= \begin{vmatrix}
+	0 & xe^x \\
+	e^x/x & (x+1)e^x
+	\end{vmatrix} = -e^{2x}; \\
+	\Delta_{u_2'} &= \begin{vmatrix}
+	e^x & 0 \\
+	e^x & e^x/x
+	\end{vmatrix} = e^{2x}/x.
+\end{align*}
+Тогда
+\begin{align*}
+	u_1' &= \frac{\Delta_{u_1'}}{\Delta} = -1 \Rightarrow u_1 = -x + \tilde{C_1}, \\
+	u_2' &= \frac{\Delta_{u_2'}}{\Delta} = \frac1x \Rightarrow u_2 = \ln|x| +\tilde{C_2}.
+\end{align*}
+
+Записываем частное решение
+\begin{align*}
+	y_1(x) &= \tilde{C_1}e^x \underbrace{- xe^x + \tilde{C_2}xe^x} + x\ln|x|e^x \\
+		&= \tilde{C_1}e^x + \underbrace{\left(\tilde{C_2}-1\right)}_{\tilde{C_3}}xe^x + x\ln|x|e^x;
+\shortintertext{и тогда общее решение неоднородного уравнения:}
+	y(x) &= \hat{C_1}e^x + \hat{C_2}xe^x+x\ln|x|e^x \\
+	&= e^x\left(\hat{C_1} + \hat{C_2}x + x\ln|x|\right).
+\end{align*}
+\begin{thebibliography}{9}
+	\bibitem{Filippov}
+	А.Ф. Филиппов. Сборник задач по дифференциальным уравнениям.
+	\url{http://kvm.gubkin.ru/pub/uok/FilippovDU.pdf}
+\end{thebibliography}
 \end{document}
