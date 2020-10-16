@@ -35,7 +35,7 @@ f(t) \risingdotseq F(p), \text{ и } F(p) \fallingdotseq f(t).
 	\item $\forall t > 0,~ f(t)$ на каждом конечном сегменте области определения имеет только конечное число разрывов первого рода, а в остальных точках удовлетворяет условию Липшица-Гельднера: 
 	\[\exists\tau_0>0\forall \tau \leq \tau_0 |f(t+\tau) - f(t)| \leq A|\tau|^\alpha.\]
 	Любая непрерывно-дифференцируемая функция удовлетворяет этому условию.
-	\item $f(t)$ растёт не быстрее показательной функции: \[ |f(t)| < Me^{p_0t}.\] Это всегда справедливо для физических процессов.
+	\item $f(t)$ растёт не быстрее показательной функции: \[ |f(t)| < Me^{p_0t}.\] Это всегда справедливо для физических процессов. \label{itm:original-conditions:growth}
 \end{enumerate}
 
 \paragraph{Обратное преобразование}
@@ -85,11 +85,42 @@ f(t) = \L^{-1}[F(p)] = \frac{1}{2\pi\i}\int_{a - \i\infty}^{a+\i\infty}e^{pt}F(p
 	\int_p^\infty F(q)\rd q \fallingdotseq \frac 1t f(t).
 	\]
 	\item Предельные теоремы.
-	\begin{align*}
-		\lim\limits_{p\to \infty} pF(p) &= f(0),\\
-		\lim\limits_{p\to0} pF(p) &= f(\infty) \equiv \lim_{t\to\infty}f(t).
-	\end{align*}
+	\begin{align}
+		\lim\limits_{p\to \infty} pF(p) &= f(0), \label{eq:image-limit-infty}\\
+		\lim\limits_{p\to0} pF(p) &= f(\infty) \equiv \lim_{t\to\infty}f(t). \label{eq:image-limit-0}
+	\end{align}
 \end{enumerate}
+ \begin{rmk}[Первая предельная теорема]
+ 	Уравнение~\eqref{eq:image-limit-infty} следует из того, что 
+ 	\[
+ 	\forall g  \lim\limits_{p\to \infty}\L [g] (p) = 0.
+ 	\]
+ 	Выбрав $g(t) = f'(t)$, и используя свойство~\ref{itm:prop-diff-original}, получим:
+ 	\begin{align*}
+ 		\lim\limits_{p\to \infty}\L [f'](p) &= \lim\limits_{p\to \infty}\left[p F(p) - f(0)\right] \\
+ 		&= \lim\limits_{p\to \infty} \left[p F(p) \right] - f(0) \\
+ 		&= 0, \\
+ 		\Rightarrow \lim\limits_{p\to \infty} pF(p) &= f(0).
+ 	\end{align*}
+ \end{rmk}
+\begin{rmk}[Вторая предельная теорема]
+	Уравнение~\eqref{eq:image-limit-0} можно получить из того же свойства~\ref{itm:prop-diff-original}. 
+	
+	Вообще, обращаю ваше внимание на то, что этот предел не всегда существует. Выше~\footnote{Свойство~\ref{itm:original-conditions:growth} оригинала преобразования.} я сказал, что оригинал растёт не быстрее показательной функции $h(t) = Me^{p_0t}$, где $p_0\ge0$. Соответственно, не всегда существует $\lim\limits_{t\to\infty} f(t)\equiv f(\infty) < \infty$.
+	
+	Более того, сам образ $\L[f(t)] \equiv F(p)$ определён только в полуплоскости $\Re~p > p_0$; ввиду чего, если $p_0>0$  -- предел $\lim\limits_{p\to0} pF(p)$ невозможно взять ввиду того, что при приближении к нулю, $F(p)$ перестаёт существовать.
+	
+	Если же все условия соблюдены -- то есть, $|f(t)| < M$, и значит $p_0=0$, то тогда
+	\begin{align*}
+		\lim\limits_{p\to0} \L[f'](p) &= \lim\limits_{p\to0}\int_{0}^{\infty}f'(t)e^{-pt}\rd t \\
+												&= \int_0^{\infty} f'(t)\rd t \\
+												&= f(\infty) - f(0) \\
+												&= \lim\limits_{p\to0}pF(p) - f(0);\\
+	f(\infty) - \cancel{f(0)} &= \lim\limits_{p\to0}pF(p) - \cancel{f(0)};
+	\shortintertext{и получаем}
+	\lim\limits_{p\to0}pF(p) &= f(\infty).
+	\end{align*}
+\end{rmk}
 
 \begin{thm}[Первая теорема разложения]
 	Если функция $F(p)$ -- аналитична~\footnote{В окрестности любой точки своей области определения представима сходящимся степенным рядом.} в окрестности $|p|>R$ бесконечно удалённой точки, и имеет в ней разложение в ряд Лорана:
