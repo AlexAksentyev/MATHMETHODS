@@ -1,0 +1,133 @@
+\documentclass[12pt]{report}
+\usepackage{../header}
+
+\renewcommand{\L}{\mathcal L}
+\renewcommand{\i}{i}
+\newcommand{\R}{\mathbb R}
+
+
+\title{Задачи по теме 2: операционное исчисление}
+
+\begin{document}
+	\paragraph{Найти изображение функции} $f(t) = \sin(t+\alpha)$.
+	
+	Применим \emph{теорему запаздывания}:~\footnote{$f(t-\tau) \risingdotseq e^{-p\tau}F(p)$}
+	\[
+		\L f(t-(-\alpha)) = e^{p\alpha}\L f(t).
+	\]
+	Для того, чтобы найти преобразование Лапласа $f(t) = \sin(t)$ разложим синус по формуле Эйлера:
+	\[
+		\sin t = \frac{1}{2\i}\left[e^{\i t} - e^{-\i t}\right].
+	\]
+	Вычислим преобразование Лапласа экспоненциальной функции:
+	\begin{align*}
+		\L e^{at} &= \int_0^\infty e^{-pt}\cdot e^{at}\rd t = \int_0^\infty e^{(a-p)t}\rd t \notag\\
+					 &= \left.\frac{1}{a-p}\cdot e^{(a-p)t}\right\vert_0^\infty. \notag
+	    \intertext{Здесь важно вспомнить, что образ $\L f(t)$ существует (интеграл сходится) только в полу-плоскости $\Re p > a$. Раз так, $a-p<0$ и}
+	    			&= \frac{1}{a-p}\left[\underbrace{e^{-|a-p|\cdot\infty} }_{=0}- 1\right] = -\frac{1}{a-p} \notag\\
+	    			&= \frac{1}{p-a}. 
+	\end{align*}
+	Таким образом, мы получили табличное
+	\begin{equation}\label{eq:exp-image}
+		\boxed{e^{p_0t} \risingdotseq \frac{1}{p-p_0}.}
+	\end{equation}
+	
+	Тогда:
+	\begin{align*}
+		e^{\i t} &\risingdotseq \frac{1}{p-\i}, \\
+		e^{-\i t}&\risingdotseq \frac{1}{p+\i}, \\
+		\L\left[\frac{1}{2\i}\left(e^{\i t} - e^{-\i t}\right)\right] &= \frac{1}{2\i}\left(\L e^{\i t} - \L e^{-\i t}\right)\\
+						&= \frac{1}{2\i}\left(\frac{1}{p-\i} - \frac{1}{p+\i}\right) \\
+						&= \frac{1}{2\i}\frac{2\i}{p^2-\i^2} \\
+						&= \frac{1}{p^2+1}.
+	\end{align*}
+	
+	Ответ:
+	\[
+		\boxed{\sin(t+\tau) = \frac{e^{p\alpha}}{p^2+1}.}
+	\]
+	
+	\paragraph{Найти изображение функции} $f(t) = 5e^{-2t} + 3\cos t$.
+	
+	Аналогично предыдущему, находим:
+	\begin{align}
+		\L\cos t &= \frac{p}{p^2+1}; \notag\\
+		\L e^{-2t} &= \frac{1}{p+2} \tag{ур.~\eqref{eq:exp-image}}\\
+		\L\left[C_1f_1(t) + C_2f_2(t)\right] &= C_1\cdot \L f_1+ C_2\cdot \L f_2 \notag
+	\shortintertext{и значит ответ:}
+	F(p) &= \frac{5}{p+2} + \frac{3p}{p^2+1}.\notag
+	\end{align}
+	
+	\paragraph{Найти изображение функции} $f(t) = \sinh t - \sin t$.
+	
+	Заметим, что 
+	\[
+		\sinh t = \frac12\left[e^t - e^{-t}\right] \risingdotseq \frac{1}{p^2-1},
+	\]
+	и таким образом
+	\begin{align*}
+		\L\left[\sinh t - \sin t\right] &= \frac{1}{p^2-1} - \frac{1}{p^2+1} \\
+												 &= \frac{2}{p^4-1}.
+	\end{align*}
+	
+	\paragraph{Восстановить оригинал по изображению} $F(p) = \frac{p}{p^4-1}$.
+	
+	Используя метод неопределённых коэффициентов разложим дробь на простейшие:
+	\[
+		\frac{p}{p^4-1} = \frac14\underbrace{\frac{1}{p+1}}_{\L\exp(-t)} + \frac14\underbrace{\frac{1}{p-1}}_{\L\exp t}-\frac12\underbrace{\frac{p}{p^2+1}}_{\L\cos t}.
+	\]
+	Значит ответ:
+	\begin{align*}
+		f(t) &= \frac12\cdot\underbrace{\frac12\left[e^t+e^{-t}\right]}_{\cosh t} - \frac12\cos t \\
+	          &= \frac12\left(\cosh t - \cos t\right).
+	\end{align*}
+	
+	\paragraph{Восстановить оригинал по изображению} 
+	\[
+		F(p) = \frac{1-e^{-p}}{p(p^2+1)}.
+	\]
+	Во-первых, увидив $e^{-p}$ пожелаем воспользоваться \emph{теоремой запаздывания}. Перед нами линейная композиция образов некоторой функции $h(t)\risingdotseq \frac{1}{p(p^2+1)}$ и её же, но с аргументом $t-1$
+	\[
+		F(p) \fallingdotseq h(t) - h(t-1).
+	\]
+	Осталось только определить функцию $h(t)$. Разложим дробь
+	\[
+		\frac{1}{p(p^2+1)} = \underbrace{\frac1p}_{\L 1(t)} - \underbrace{\frac{p}{p^2+1}}_{\L [1(t)\cos t]}.
+	\]
+	То есть, искомая функция 
+	\[
+		h(t) = 1(t)\cdot (1 - \cos t).
+	\]
+	\begin{rmk}[Важное обстоятельство]
+		В лекции мы с вами обсуждали, что одним из условий на функцию-оригинал является то, что она \emph{тождественно равна нулю} при $t<0$. Очевидно, что $\cos t~ \cancel\equiv~ 0$ при $t<0$, и значит \emph{сам по себе} быть оригиналом \emph{не может}. Всегда, когда мы пишем оригиналом аналитическую функцию, отличную от $1(t)$, мы подразумеваем, что $1(t)$ домножается на эту функцию, т.е.
+		\[
+			F(p)\fallingdotseq f(t) \equiv f(t)\cdot 1(t).
+		\]\qed
+	\end{rmk}
+	
+	Ответ:
+	\[
+		F(p) \fallingdotseq \underbrace{1(t)-1(t-1)}_{\text{импульс}} + 1(t-1)\cos(t-1) - 1(t)\cos t.
+	\]
+	
+	\paragraph{Решить задачу Коши}
+	\[
+		\begin{cases}
+		\ddot{x} - 3\dot{x} + 2x &= 2e^{3t}, \\
+		x(0) &= 1, \\ 
+		 \dot x(0) &= 3.
+		\end{cases}
+	\]
+	
+	Составим уравнение для образов:
+	\begin{align*}
+		\dot x &\risingdotseq pX(p) - 1, \\
+		\ddot x&\risingdotseq p^2X(p) - p - 3, 
+		\shortintertext{и соответственно}
+		p^2X-p~\cancel{-3} - 3pX ~\cancel{+3} + 2X &= \frac{2}{p-3}, \\
+		\cancel{(p^2-3p+2)}~X &= \frac{\cancel{p^2-3p+2}}{p-3}.
+		\shortintertext{Получим}
+		X &= \frac{1}{p-3}, \\
+		x(t) &= e^{3t}.
+	\end{align*}
+\end{document}
