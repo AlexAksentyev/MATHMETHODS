@@ -81,12 +81,12 @@ F_X(x) = \int_{min\, E}^x f(\xi)\rd\xi,
 	\mu_1 &= M\left[X\right] \equiv m, \tag{матожидание}\\
 	\mu_2 &= M\left[(X-m)^2\right] \equiv \sigma^2, \tag{дисперсия}\\
 	\mu_3 &= M\left[(X-m)^3\right], \tag{асимметрия}\\
-	\mu_4 &= M\left[(X-m^4)\right], \tag{kurtosis}
+	\mu_4 &= M\left[(X-m)^4\right], \tag{kurtosis}
 \end{align}
 и так далее.
 
 \begin{rmk}[Терминология]
-	В русскоязычной литературе, то, что я обоозвал kurtosis называют \emph{эксцесс}.
+	В русскоязычной литературе, то, что я обозвал kurtosis называют \emph{эксцесс}.
 	Но, это не правильно, потому что есть kurtosis, и есть \emph{excess} kurtosis.
 	Они отличаются следующим образом:
 	\[
@@ -139,7 +139,7 @@ F_X(x) = \int_{min\, E}^x f(\xi)\rd\xi,
 
 Соответственно, кумулятивное распределение ${F_{X,Y}(x,y) = P(X<x\wedge Y<y)}$. Функция плотности распределения (joint probability density function) $f(x,y)$ определяется аналогично одномерному случаю.
 
-\subsection{Ковариация и коэффицииент корреляции}
+\subsection{Ковариация и коэффициент корреляции}
 В одномерном случае у нас был параметр дисперсии $\sigma_X$, такой, что вариация 
 \begin{align*}
 \var{X} = \sigma^2_X &= \avg{(X-\avg{X})^2} \\
@@ -164,12 +164,12 @@ F_X(x) = \int_{min\, E}^x f(\xi)\rd\xi,
 
 Это можно сделать методом максимального правдоподобия, который заключается в следующем:
 \begin{enumerate}
-	\item Cоставляем функцию правдоподобия $L(\vec\theta|\vec x) = f(\vec x|\vec\theta)$.~\footnote{По сути, функция правдоподобия -- это вероятность наблюдения данного набоора данных, при данном значении параметра; но интрпретируется как функция $\vec\theta$, а данные считаются параметром.}
+	\item Cоставляем функцию правдоподобия $L(\vec\theta|\vec x) = f(\vec x|\vec\theta)$.~\footnote{По сути, функция правдоподобия -- это вероятность наблюдения данного набора данных, при данном значении параметра; но интрпретируется как функция $\vec\theta$, а данные считаются параметром.}
 	\item  Пытаемся подобрать вектор параметров $\vec\theta_0$, который бы максимизировал $L(\vec\theta|\vec x)$.
 \end{enumerate}
 
 \begin{rmk}[independent identically distributed]
-	Поскольку в нашей задаче рассматриваются отдельные измерения одной и той же величины, логично предположить, что $x_{i+1}$ независимо от $x_i$, и что все измерения происходят из оодного и того же распределения. Тогда 
+	Поскольку в нашей задаче рассматриваются отдельные измерения одной и той же величины, логично предположить, что $x_{i+1}$ независимо от $x_i$, и что все измерения происходят из одного и того же распределения. Тогда 
 	\[
 	L(\vec\theta|\vec x) = f(\vec x|\vec\theta) = \prod_{i=1}^n f(x_i|\vec\theta).
 	\]
@@ -182,7 +182,7 @@ f(x_i|\vec\theta) &= f(x_i|(\mu,\sigma)) \\
 &= \frac{1}{\sqrt{2\pi}\sigma}\cdot \exp\left[-\frac12\left(\frac{x_i-\mu}{\sigma}\right)^2\right].
 \end{align*}
 
-В таком случе, удобнее не \emph{максимизировать} $L(\vec\theta|\vec x)$, а \emph{минимизировать} функцию $-\ln L(\vec\theta|\vec x)$:
+В таком случае, удобнее не \emph{максимизировать} $L(\vec\theta|\vec x)$, а \emph{минимизировать} функцию $-\ln L(\vec\theta|\vec x)$:
 \begin{align*}
 	-\ln L(\vec\theta|\vec x) &= -\ln\left(\prod_i f(x_i|\vec\theta)\right) \\
 	&= -\ln\left[K_1\cdot  \exp\left(-\frac12\sum_i \left(\frac{x_i-\mu}{\sigma}\right)^2\right)\right] \\
@@ -199,7 +199,7 @@ f(x_i|\vec\theta) &= f(x_i|(\mu,\sigma)) \\
 	\begin{align}
 	Y_i &= \frac{X_i-\mu}{\sigma} \sim N(0,1),
 	\intertext{а сумма}
-	Z &= \sum_{i=1}^{n} Y_i \sim \chi^2_n
+	Z &= \sum_{i=1}^{n} Y_i^2 \sim \chi^2_n
 	\end{align}
 \end{rmk}
 \end{document}
